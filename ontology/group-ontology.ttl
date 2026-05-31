@@ -87,9 +87,11 @@ g03:blueCup01
     cap:hasAffordance g03:aff_blueCup01_grasp , g03:aff_blueCup01_stack .
 
 g03:aff_blueCup01_grasp  a cap:GraspingAffordance ;
-    rdfs:label "grasping affordance of blue cup 01"@en .
+    rdfs:label "grasping affordance of blue cup 01"@en ;
+    rdfs:comment "The grasping affordance of blue cup 01: the cup can be grasped, held, and lifted by the robot gripper."@en .
 g03:aff_blueCup01_stack  a cap:StackabilityAffordance ;
-    rdfs:label "stackability affordance of blue cup 01"@en .
+    rdfs:label "stackability affordance of blue cup 01"@en ;
+    rdfs:comment "The stackability affordance of blue cup 01: the cup can be stacked with another cup in the cup-stacking task."@en .
 
 g03:pinkCup01
     a cap:Cup ;
@@ -104,9 +106,11 @@ g03:pinkCup01
     cap:hasAffordance g03:aff_pinkCup01_grasp , g03:aff_pinkCup01_stack .
 
 g03:aff_pinkCup01_grasp  a cap:GraspingAffordance ;
-    rdfs:label "grasping affordance of pink cup 01"@en .
+    rdfs:label "grasping affordance of pink cup 01"@en ;
+    rdfs:comment "The grasping affordance of pink cup 01: the cup can be grasped, held, and lifted by the robot gripper."@en .
 g03:aff_pinkCup01_stack  a cap:StackabilityAffordance ;
-    rdfs:label "stackability affordance of pink cup 01"@en .
+    rdfs:label "stackability affordance of pink cup 01"@en ;
+    rdfs:comment "The stackability affordance of pink cup 01: the cup can be stacked with another cup in the cup-stacking task."@en .
 
 
 # Task 2 - Cutlery arrangement : knife, fork, plate
@@ -122,7 +126,8 @@ g03:knife01
     cap:hasAffordance g03:aff_knife01_grasp .
 
 g03:aff_knife01_grasp  a cap:GraspingAffordance ;
-    rdfs:label "grasping affordance of knife 01"@en .
+    rdfs:label "grasping affordance of knife 01"@en ;
+    rdfs:comment "The grasping affordance of knife 01: the knife can be grasped and repositioned by the robot gripper in the cutlery-arrangement task."@en .
 
 g03:fork01
     a cap:Fork ;
@@ -136,7 +141,8 @@ g03:fork01
     cap:hasAffordance g03:aff_fork01_grasp .
 
 g03:aff_fork01_grasp  a cap:GraspingAffordance ;
-    rdfs:label "grasping affordance of fork 01"@en .
+    rdfs:label "grasping affordance of fork 01"@en ;
+    rdfs:comment "The grasping affordance of fork 01: the fork can be grasped and repositioned by the robot gripper in the cutlery-arrangement task."@en .
 
 # Plate is a not a grasp target .
 g03:plate01
@@ -150,7 +156,8 @@ g03:plate01
     cap:hasAffordance g03:aff_plate01_support .
 
 g03:aff_plate01_support  a cap:SupportAffordance ;
-    rdfs:label "support affordance of plate 01"@en .
+    rdfs:label "support affordance of plate 01"@en ;
+    rdfs:comment "The support affordance of plate 01: the plate can support cutlery placed on it; this is why the plate is a placement reference rather than a grasp target."@en .
 
 
 # Task 3 - Toy block collection : toy blocks, basket
@@ -167,7 +174,8 @@ g03:block01
     cap:hasAffordance g03:aff_block01_grasp .
 
 g03:aff_block01_grasp  a cap:GraspingAffordance ;
-    rdfs:label "grasping affordance of toy block 01"@en .
+    rdfs:label "grasping affordance of toy block 01"@en ;
+    rdfs:comment "The grasping affordance of toy block 01: the block can be grasped and lifted by the robot gripper for collection into the basket."@en .
 
 g03:block02
     a cap:ToyBlock ;
@@ -182,7 +190,8 @@ g03:block02
     cap:hasAffordance g03:aff_block02_grasp .
 
 g03:aff_block02_grasp  a cap:GraspingAffordance ;
-    rdfs:label "grasping affordance of toy block 02"@en .
+    rdfs:label "grasping affordance of toy block 02"@en ;
+    rdfs:comment "The grasping affordance of toy block 02: the block can be grasped and lifted by the robot gripper for collection into the basket."@en .
 
 # Basket is not a grasp target.
 g03:basket01
@@ -196,4 +205,5 @@ g03:basket01
     cap:hasAffordance g03:aff_basket01_contain .
 
 g03:aff_basket01_contain  a cap:ContainmentAffordance ;
-    rdfs:label "containment affordance of basket 01"@en .
+    rdfs:label "containment affordance of basket 01"@en ;
+    rdfs:comment "The containment affordance of basket 01: the basket can receive and hold toy blocks; this is why the basket is a container rather than a grasp target."@en .
