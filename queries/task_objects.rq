@@ -1,0 +1,21 @@
+# Overview of every physical object in the environment: its asserted type,
+# task role, affordance(s), and whether it was inferred to be graspable.
+# Useful to CONTRAST task relevance against inferred graspability
+# (e.g. plate / basket are task-relevant but NOT graspable).
+PREFIX cap:  <https://hcis.io/ontology/aicapstone/2026/>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?obj ?label ?role ?affordanceType ?graspable
+WHERE {
+    ?obj a cap:PhysicalObject .
+    OPTIONAL { ?obj cap:hasObjectLabel ?label . }
+    OPTIONAL { ?obj cap:hasTaskRole    ?role  . }
+    OPTIONAL {
+        ?obj cap:hasAffordance ?aff .
+        ?aff a ?affordanceType .
+        ?affordanceType rdfs:subClassOf* cap:Affordance .
+    }
+    BIND( EXISTS { ?obj a cap:GraspableObject } AS ?graspable )
+}
+ORDER BY ?obj

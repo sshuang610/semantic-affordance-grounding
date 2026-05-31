@@ -1,0 +1,227 @@
+@prefix g03:     <https://hcis.io/ontology/aicapstone/2026/group03/> .
+@prefix cap:     <https://hcis.io/ontology/aicapstone/2026/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann:    <http://purl.org/vocab/vann/> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+
+#################################################################
+# Group Ontology Metadata
+#################################################################
+# This is the group-authored ontology. It IMPORTS the shared course
+# ontology (cap:) and adds: (1) the OWL reasoning axiom for
+# cap:GraspableObject, and (2) the environment instances for all three
+# baseline tasks. Group-specific terms live under the g03: namespace.
+
+<https://hcis.io/ontology/aicapstone/2026/group03>
+    a owl:Ontology ;
+    owl:imports <https://hcis.io/ontology/aicapstone/2026> ;
+    rdfs:label "AI Capstone 2026 - Group 03 Semantic Grounding Ontology"@en ;
+    rdfs:comment
+        "Group 03 submission for Homework 5. Imports the shared course vocabulary, supplies the OWL definition of cap:GraspableObject, and declares the environment instances used to infer graspability."@en ;
+    dcterms:title "AI Capstone 2026 - Group 03 Semantic Grounding Ontology"@en ;
+    dcterms:description
+        "A group ontology that grounds perceived task objects (cups, cutlery, plate, toy blocks, basket) as typed, role-bearing, affordance-carrying individuals, so that an OWL DL reasoner can infer which objects are graspable."@en ;
+    dcterms:creator g03:group03 ;
+    dcterms:created "2026-05-31"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    vann:preferredNamespacePrefix "g03" ;
+    vann:preferredNamespaceUri "https://hcis.io/ontology/aicapstone/2026/group03/" .
+
+g03:group03
+    a foaf:Group ;
+    foaf:name "AI Capstone 2026 Group 03"@en ;
+    foaf:member g03:s112550122 , g03:s112550110 , g03:s112550032 ,
+                g03:s112550123 , g03:s112550045 , g03:s112550115 .
+
+g03:s112550122 a foaf:Person ; foaf:name "徐畹茜"@zh ; rdfs:label "徐畹茜 (112550122)"@zh .
+g03:s112550110 a foaf:Person ; foaf:name "莊蕓安"@zh ; rdfs:label "莊蕓安 (112550110)"@zh .
+g03:s112550032 a foaf:Person ; foaf:name "李尹瑄"@zh ; rdfs:label "李尹瑄 (112550032)"@zh .
+g03:s112550123 a foaf:Person ; foaf:name "黃襄香"@zh ; rdfs:label "黃襄香 (112550123)"@zh .
+g03:s112550045 a foaf:Person ; foaf:name "曾歆喬"@zh ; rdfs:label "曾歆喬 (112550045)"@zh .
+g03:s112550115 a foaf:Person ; foaf:name "謝欣陵"@zh ; rdfs:label "謝欣陵 (112550115)"@zh .
+
+#################################################################
+# Reasoning Target: cap:GraspableObject
+#################################################################
+# The provided course-affordance.ttl references cap:GraspableObject as a
+# course-level term (see course-alignment.ttl) but omits its OWL axiom
+# "for space" (SPEC Section 11). We supply that axiom here so a DL
+# reasoner (HermiT/Pellet) can CLASSIFY individuals, rather than us
+# asserting graspability by hand.
+#
+#   GraspableObject  ==  PhysicalObject
+#                        AND (hasAffordance SOME GraspingAffordance)
+
+cap:GraspableObject
+    a owl:Class ;
+    rdfs:label "graspable object"@en ;
+    rdfs:comment
+        "A physical object inferred to afford grasping by a robot end effector in the task context. Membership is derived by reasoning, not asserted."@en ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (
+            cap:PhysicalObject
+            [ a owl:Restriction ;
+              owl:onProperty cap:hasAffordance ;
+              owl:someValuesFrom cap:GraspingAffordance ]
+        )
+    ] .
+
+#################################################################
+# Environment: end effector and task
+#################################################################
+
+g03:gripper01
+    a cap:EndEffector ;
+    rdfs:label "two-finger gripper 01"@en ;
+    rdfs:comment "The robot end effector used to manipulate objects in Group 03's environment."@en .
+
+g03:cupStackingTask
+    a cap:ManipulationTask ;
+    rdfs:label "cup stacking task"@en ;
+    rdfs:comment "The baseline cup-stacking task instance for Group 03."@en ;
+    cap:hasTargetObject g03:blueCup01 , g03:pinkCup01 .
+
+#################################################################
+# Task 1 - Cup stacking : blue cup, pink cup
+#################################################################
+# NOTE on modeling: each instance is given EXPLICIT affordance
+# individuals via cap:hasAffordance. The course classes already carry
+# class-level affordance restrictions, so HermiT can classify these as
+# GraspableObject from the class axioms alone. We also assert the
+# affordance individuals so the inference is robust across reasoning
+# workflows and so the affordance layer is concrete and queryable.
+
+g03:blueCup01
+    a cap:Cup ;
+    rdfs:label "blue cup 01"@en ;
+    rdfs:comment "The blue cup instance for the baseline cup-stacking task."@en ;
+    cap:hasColor "blue" ;
+    cap:hasObjectLabel "blue_cup" ;
+    cap:hasPoseFrame "world/object_blue_cup" ;
+    cap:hasApproxWidth "0.07"^^xsd:decimal ;
+    cap:hasTaskRole cap:TargetObject ;
+    cap:canBeManipulatedBy g03:gripper01 ;
+    cap:hasAffordance g03:aff_blueCup01_grasp , g03:aff_blueCup01_stack .
+
+g03:aff_blueCup01_grasp  a cap:GraspingAffordance ;
+    rdfs:label "grasping affordance of blue cup 01"@en .
+g03:aff_blueCup01_stack  a cap:StackabilityAffordance ;
+    rdfs:label "stackability affordance of blue cup 01"@en .
+
+g03:pinkCup01
+    a cap:Cup ;
+    rdfs:label "pink cup 01"@en ;
+    rdfs:comment "The pink cup instance for the baseline cup-stacking task."@en ;
+    cap:hasColor "pink" ;
+    cap:hasObjectLabel "pink_cup" ;
+    cap:hasPoseFrame "world/object_pink_cup" ;
+    cap:hasApproxWidth "0.07"^^xsd:decimal ;
+    cap:hasTaskRole cap:TargetObject ;
+    cap:canBeManipulatedBy g03:gripper01 ;
+    cap:hasAffordance g03:aff_pinkCup01_grasp , g03:aff_pinkCup01_stack .
+
+g03:aff_pinkCup01_grasp  a cap:GraspingAffordance ;
+    rdfs:label "grasping affordance of pink cup 01"@en .
+g03:aff_pinkCup01_stack  a cap:StackabilityAffordance ;
+    rdfs:label "stackability affordance of pink cup 01"@en .
+
+#################################################################
+# Task 2 - Cutlery arrangement : knife, fork, plate
+#################################################################
+
+g03:knife01
+    a cap:Knife ;
+    rdfs:label "knife 01"@en ;
+    rdfs:comment "The knife instance for the baseline cutlery-arrangement task."@en ;
+    cap:hasColor "silver" ;
+    cap:hasObjectLabel "knife" ;
+    cap:hasPoseFrame "world/object_knife" ;
+    cap:hasTaskRole cap:TargetObject ;
+    cap:canBeManipulatedBy g03:gripper01 ;
+    cap:hasAffordance g03:aff_knife01_grasp .
+
+g03:aff_knife01_grasp  a cap:GraspingAffordance ;
+    rdfs:label "grasping affordance of knife 01"@en .
+
+g03:fork01
+    a cap:Fork ;
+    rdfs:label "fork 01"@en ;
+    rdfs:comment "The fork instance for the baseline cutlery-arrangement task."@en ;
+    cap:hasColor "silver" ;
+    cap:hasObjectLabel "fork" ;
+    cap:hasPoseFrame "world/object_fork" ;
+    cap:hasTaskRole cap:TargetObject ;
+    cap:canBeManipulatedBy g03:gripper01 ;
+    cap:hasAffordance g03:aff_fork01_grasp .
+
+g03:aff_fork01_grasp  a cap:GraspingAffordance ;
+    rdfs:label "grasping affordance of fork 01"@en .
+
+# Plate is a placement REFERENCE, not a grasp target. It carries only a
+# support affordance, so it is deliberately NOT inferred as graspable.
+g03:plate01
+    a cap:Plate ;
+    rdfs:label "plate 01"@en ;
+    rdfs:comment "The plate instance used as a placement reference in the cutlery-arrangement task."@en ;
+    cap:hasColor "white" ;
+    cap:hasObjectLabel "plate" ;
+    cap:hasPoseFrame "world/object_plate" ;
+    cap:hasTaskRole cap:ReferenceObject ;
+    cap:hasAffordance g03:aff_plate01_support .
+
+g03:aff_plate01_support  a cap:SupportAffordance ;
+    rdfs:label "support affordance of plate 01"@en .
+
+#################################################################
+# Task 3 - Toy block collection : toy blocks, basket
+#################################################################
+
+g03:block01
+    a cap:ToyBlock ;
+    rdfs:label "toy block 01"@en ;
+    rdfs:comment "A toy block to be collected into the basket."@en ;
+    cap:hasColor "red" ;
+    cap:hasObjectLabel "toy_block" ;
+    cap:hasPoseFrame "world/object_block_01" ;
+    cap:hasApproxWidth "0.04"^^xsd:decimal ;
+    cap:hasTaskRole cap:CollectableObject ;
+    cap:canBeManipulatedBy g03:gripper01 ;
+    cap:hasAffordance g03:aff_block01_grasp .
+
+g03:aff_block01_grasp  a cap:GraspingAffordance ;
+    rdfs:label "grasping affordance of toy block 01"@en .
+
+g03:block02
+    a cap:ToyBlock ;
+    rdfs:label "toy block 02"@en ;
+    rdfs:comment "A toy block to be collected into the basket."@en ;
+    cap:hasColor "green" ;
+    cap:hasObjectLabel "toy_block" ;
+    cap:hasPoseFrame "world/object_block_02" ;
+    cap:hasApproxWidth "0.04"^^xsd:decimal ;
+    cap:hasTaskRole cap:CollectableObject ;
+    cap:canBeManipulatedBy g03:gripper01 ;
+    cap:hasAffordance g03:aff_block02_grasp .
+
+g03:aff_block02_grasp  a cap:GraspingAffordance ;
+    rdfs:label "grasping affordance of toy block 02"@en .
+
+# Basket is the CONTAINER target, not a grasp target. It carries only a
+# containment affordance, so it is deliberately NOT inferred as graspable.
+g03:basket01
+    a cap:Basket ;
+    rdfs:label "basket 01"@en ;
+    rdfs:comment "The basket instance that receives toy blocks in the toy-block-collection task."@en ;
+    cap:hasColor "brown" ;
+    cap:hasObjectLabel "basket" ;
+    cap:hasPoseFrame "world/object_basket" ;
+    cap:hasTaskRole cap:ContainerTarget ;
+    cap:hasAffordance g03:aff_basket01_contain .
+
+g03:aff_basket01_contain  a cap:ContainmentAffordance ;
+    rdfs:label "containment affordance of basket 01"@en .

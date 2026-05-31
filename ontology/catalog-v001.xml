@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  Protege import-resolution catalog.
+  Maps the course ontology IRI to the LOCAL imported file so that
+  owl:imports works offline. Protege reads this file automatically when
+  it is placed next to group-ontology.ttl.
+-->
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="course-ontology-local"
+         name="https://hcis.io/ontology/aicapstone/2026"
+         uri="imports/course-affordance.ttl"/>
+</catalog>

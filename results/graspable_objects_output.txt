@@ -1,0 +1,13 @@
+Inferred graspable objects (query: queries/graspable_objects.rq)
+Reasoner: owlrl OWL-RL closure over course + group ontology
+================================================================
+object           objectLabel    taskRole              
+----------------------------------------------------------------
+g03:block01      toy_block      cap:CollectableObject 
+g03:block02      toy_block      cap:CollectableObject 
+g03:blueCup01    blue_cup       cap:TargetObject      
+g03:fork01       fork           cap:TargetObject      
+g03:knife01      knife          cap:TargetObject      
+g03:pinkCup01    pink_cup       cap:TargetObject      
+----------------------------------------------------------------
+total graspable objects inferred: 6

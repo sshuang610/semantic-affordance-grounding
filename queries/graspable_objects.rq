@@ -1,0 +1,14 @@
+# Retrieve all objects INFERRED to be graspable.
+# Run this over the REASONED / inferred graph (not the raw asserted graph),
+# otherwise the cap:GraspableObject memberships will not appear.
+PREFIX cap:  <https://hcis.io/ontology/aicapstone/2026/>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?obj ?label ?role
+WHERE {
+    ?obj a cap:GraspableObject .
+    OPTIONAL { ?obj cap:hasObjectLabel ?label . }
+    OPTIONAL { ?obj cap:hasTaskRole   ?role  . }
+}
+ORDER BY ?obj
