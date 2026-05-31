@@ -12,7 +12,6 @@ answer: *which objects are graspable, and why?*
 ## 1. Project title and group members
 
 - **Project:** Ontology-based Semantic Grounding for a grasping robot agent
-- **Course:** AI Capstone 2026, Homework 5
 - **Group members:** 徐畹茜 (112550122), 莊蕓安 (112550110), 李尹瑄 (112550032), 黃襄香 (112550123), 曾歆喬 (112550045), 謝欣陵 (112550115)
 
 ## 2. Selected task(s)
@@ -153,28 +152,6 @@ produced either by **Protégé ▸ File ▸ Export inferred axioms as ontology**
 (HermiT) or, reproducibly, by `python src/reason_and_query.py` (owlrl). It
 contains the asserted triples plus all derived triples, including the
 `a cap:GraspableObject` classifications. It must **not** be edited by hand.
-
-## 11. Ontology documentation (Widoco)
-
-The ontology was verified with [Widoco](https://github.com/dgarijo/Widoco)
-(v1.4.25, JDK-17), which generated complete HTML documentation without errors —
-a practical check that the ontology is well-formed, structurally complete, and
-readable. Generated docs: [`docs/doc/index-en.html`](docs/doc/index-en.html).
-
-Because `group-ontology.ttl` uses `owl:imports`, Widoco is run on a merged,
-self-contained file (`build/group-ontology-merged.ttl`, produced by
-[`src/build_widoco_input.py`](src/build_widoco_input.py)) so the imported course
-vocabulary is documented inline. This is only Widoco's input; the submitted
-`group-ontology.ttl` is unchanged.
-
-```bash
-# 1) build the merged input (course + group, imports inlined)
-python src/build_widoco_input.py
-# 2) run Widoco (download the jar from the Widoco releases page)
-java -jar widoco-1.4.25-jar-with-dependencies_JDK-17.jar \
-  -ontFile build/group-ontology-merged.ttl \
-  -outFolder docs -rewriteAll -uniteSections -getOntologyMetadata -lang en
-```
 
 ## 10. Links
 
