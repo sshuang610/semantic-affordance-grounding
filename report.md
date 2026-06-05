@@ -50,12 +50,15 @@ the affordance classes `cap:GraspingAffordance`, `cap:StackabilityAffordance`,
 `cap:CollectableObject`; and the properties `cap:hasAffordance`,
 `cap:hasTaskRole`, `cap:hasTargetObject`, `cap:canBeManipulatedBy`,
 `cap:hasColor`, `cap:hasObjectLabel`, `cap:hasPoseFrame`, `cap:hasApproxWidth`.
+These reused declarations also provide the required `owl:ObjectProperty`,
+`owl:DatatypeProperty`, and `rdfs:subClassOf` resources via `owl:imports`, rather
+than being re-declared under `g03:`.
 
 **Newly introduced:**
 
-- The **OWL axiom for `cap:GraspableObject`** (the course file names the term but
-  omits its definition "for space"). We supply the `owl:equivalentClass` /
-  `owl:intersectionOf` / `owl:someValuesFrom` axiom from SPEC §11.
+- The **OWL axiom for `cap:GraspableObject`**: we add the `owl:equivalentClass` /
+  `owl:intersectionOf` / `owl:someValuesFrom` axiom. `cap:GraspableObject` is a
+  course-level term, so we add only its axiom, not a new class under `cap:`.
 - **Group individuals** under `g03:`: the seven baseline objects plus two toy
   blocks, their affordance individuals, an end effector `g03:gripper01`, and a
   task instance `g03:cupStackingTask`.
@@ -124,6 +127,12 @@ g03:pinkCup01 (pink_cup,  TargetObject)
 ```
 
 `g03:plate01` and `g03:basket01` are correctly excluded.
+
+**Inferred class membership (Protégé + HermiT):**
+
+![Protégé + HermiT inferred classification: the graspable object class and the cup, knife, fork, and toy block subclasses appear as inferred (yellow), and the DL Query returns exactly the six graspable individuals; plate01 and basket01 are excluded.](results/screenshots/inferred-graspable-protege-hermit.png)
+
+*Figure 1 — The six environment individuals (blue/pink cups, knife, fork, two toy blocks) are inferred as `cap:GraspableObject`; `g03:plate01` and `g03:basket01` are correctly excluded.*
 
 ## 6. Design choices
 
