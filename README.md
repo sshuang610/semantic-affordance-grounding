@@ -50,14 +50,14 @@ affordance — are correctly **excluded**.
 
 | Instance | Object type | Task role | Affordance(s) | Inferred graspable? |
 |----------|-------------|-----------|---------------|:---:|
-| `g03:blueCup01` | `cap:Cup` | TargetObject | Grasping, Stackability | ✅ |
-| `g03:pinkCup01` | `cap:Cup` | TargetObject | Grasping, Stackability | ✅ |
-| `g03:knife01` | `cap:Knife` | TargetObject | Grasping | ✅ |
-| `g03:fork01` | `cap:Fork` | TargetObject | Grasping | ✅ |
-| `g03:block01` | `cap:ToyBlock` | CollectableObject | Grasping | ✅ |
-| `g03:block02` | `cap:ToyBlock` | CollectableObject | Grasping | ✅ |
-| `g03:plate01` | `cap:Plate` | ReferenceObject | Support | ❌ (placement reference) |
-| `g03:basket01` | `cap:Basket` | ContainerTarget | Containment | ❌ (container, not grasped) |
+| `g03:blueCup01` | `cap:Cup` | TargetObject | Grasping, Stackability | Yes |
+| `g03:pinkCup01` | `cap:Cup` | TargetObject | Grasping, Stackability | Yes |
+| `g03:knife01` | `cap:Knife` | TargetObject | Grasping | Yes |
+| `g03:fork01` | `cap:Fork` | TargetObject | Grasping | Yes |
+| `g03:block01` | `cap:ToyBlock` | CollectableObject | Grasping | Yes |
+| `g03:block02` | `cap:ToyBlock` | CollectableObject | Grasping | Yes |
+| `g03:plate01` | `cap:Plate` | ReferenceObject | Support | No (placement reference) |
+| `g03:basket01` | `cap:Basket` | ContainerTarget | Containment | No (container, not grasped) |
 
 ## 5. Namespace policy
 
@@ -68,10 +68,13 @@ affordance — are correctly **excluded**.
 
 - The course `cap:` terms are **reused**, never redefined as new group classes.
 - All group-specific individuals live under `g03:`.
-- The single exception is the **OWL axiom for `cap:GraspableObject`**: the course
-  file names this term but omits its axiom "for space" (SPEC §11), so we supply
-  the `owl:equivalentClass` definition. We add the *axiom* for an existing course
-  term; we do not introduce a new class under `cap:`.
+- The single exception is the **OWL axiom for `cap:GraspableObject`**: we add its
+  `owl:equivalentClass` definition. `cap:GraspableObject` is a course-level term,
+  so we add only the *axiom* for an existing course term; we do not introduce a
+  new class under `cap:`.
+- The required OWL/RDFS resources `owl:ObjectProperty`, `owl:DatatypeProperty`,
+  and `rdfs:subClassOf` come from the imported `course-affordance.ttl` and are
+  reused here via `owl:imports`, rather than re-declared under `g03:`.
 
 ## 6. How to run the query
 
