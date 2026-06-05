@@ -72,6 +72,19 @@ g03:cupStackingTask
     rdfs:comment "The baseline cup-stacking task instance for Group 03."@en ;
     cap:hasTargetObject g03:blueCup01 , g03:pinkCup01 .
 
+g03:cutleryTask
+    a cap:ManipulationTask ;
+    rdfs:label "cutlery arrangement task"@en ;
+    rdfs:comment "The baseline cutlery-arrangement task instance for Group 03."@en ;
+    cap:hasTargetObject g03:knife01 , g03:fork01 ;
+    cap:hasReferenceObject g03:plate01 .
+
+g03:blockCollectionTask
+    a cap:ManipulationTask ;
+    rdfs:label "toy block collection task"@en ;
+    rdfs:comment "The baseline toy-block-collection task instance for Group 03."@en ;
+    cap:hasTargetObject g03:block01 , g03:block02 .
+
 
 # Task 1 - Cup stacking : blue cup, pink cup
 g03:blueCup01
